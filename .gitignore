@@ -1,0 +1,7 @@
+# Build artifacts
+*.skill
+build/
+dist/
+
+# OS
+.DS_Store
