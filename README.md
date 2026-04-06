@@ -2,7 +2,7 @@
 
 ![Model](https://img.shields.io/badge/model-Claude%20Haiku-green)
 ![License](https://img.shields.io/badge/license-CC%20BY--NC--ND%204.0-lightgrey)
-![Game](https://img.shields.io/badge/game-fixai.dev-blue)
+[![Game](https://img.shields.io/badge/game-fixai.dev-blue)](https://fixai.dev)
 
 A Claude skill for playing [Fix AI](https://fixai.dev) — a browser game where
 you contest automated AI decisions using real consumer protection law.
