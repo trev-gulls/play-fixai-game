@@ -28,6 +28,21 @@ This ensures:
 - Push version tag (e.g., `v1.0.1`) → GitHub Actions builds automatically
 - Move `latest` tag to same commit → users always download newest skill
 
+## README Badges
+
+The README contains badges that track project status:
+
+| Badge | Updates | Notes |
+|-------|---------|-------|
+| **Build** | Auto | GitHub Actions workflow status — updates automatically |
+| **Install** | Manual | Points to specific release — must bump version in README on new release (change `v1.0.0` to `v1.0.1`, etc.) |
+| **Model**, **License**, **Play** | Static | No updates needed |
+
+When releasing a new version, update the Install badge link:
+```markdown
+[![Install](https://img.shields.io/github/v/release/trev-gulls/play-fixai-game?color=0969da&label=install)](https://github.com/trev-gulls/play-fixai-game/releases/download/vX.X.X/play-fixai-game.skill)
+```
+
 ## Development
 
 All changes go through feature branches and PRs. Direct commits to `main` are blocked by git hooks.

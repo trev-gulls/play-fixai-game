@@ -35,6 +35,11 @@ Releases are automated via GitHub Actions. To release a new version:
    - Attaches it to the GitHub Release
    - Makes it downloadable from the Releases page
 
+4. **Update README Install badge** (manual):
+   - Edit `README.md`
+   - Change the Install badge link from `vX.X.X` to the new version number
+   - Example: `releases/download/v1.0.1/play-fixai-game.skill`
+
 ## Versioning
 
 Use [semantic versioning](https://semver.org/):
