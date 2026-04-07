@@ -28,7 +28,7 @@ build: clean
 site: clean
 	@echo "Staging $(SKILL_NAME) for GitHub Pages..."
 	@mkdir -p $(SITE_DIR)/agents
-	@awk 'BEGIN{d=0} /^---$$/{d++; if(d<=2){print; next} else{print "- - -"; next}} {print}' \
+	@awk 'BEGIN{d=0} /^---$$/{d++; if(d<=2){print; next} else{print ""; next}} {print}' \
 		$(PKG_SRC_PATH)/SKILL.md \
 		| sed '/^version:/d;/^author:/d' \
 		> $(SITE_DIR)/SKILL.md
