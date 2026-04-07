@@ -68,7 +68,7 @@ Always consult a qualified legal professional for your actual situation. See
 
 ## License
 
-Copyright (c) 2026 Trevor Gulls ([@tgulls](https://github.com/tgulls))
+Copyright (c) 2026 Trevor Gullstad ([@tgulls](https://github.com/trev-gulls))
 
 Licensed under
 [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) —
