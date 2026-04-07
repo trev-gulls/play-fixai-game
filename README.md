@@ -3,7 +3,7 @@
 [![Model](https://img.shields.io/badge/model-Haiku-orange)](https://claude.com)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC--ND%204.0-lightgrey)](./LICENSE.md)
 [![Build](https://github.com/trev-gulls/play-fixai-game/actions/workflows/release.yml/badge.svg)](https://github.com/trev-gulls/play-fixai-game/actions)
-[![Release](https://img.shields.io/github/v/release/trev-gulls/play-fixai-game?color=0969da&label=release)](https://github.com/trev-gulls/play-fixai-game/releases/latest)
+[![Install](https://img.shields.io/github/v/release/trev-gulls/play-fixai-game?color=0969da&label=install)](https://github.com/trev-gulls/play-fixai-game/releases/latest)
 [![Play](https://img.shields.io/badge/play-fixai.dev-c41e3a)](https://fixai.dev)
 
 A Claude skill for playing [Fix AI](https://fixai.dev) — a browser game where
