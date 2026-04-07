@@ -1,8 +1,10 @@
-# play-fixai-game
+# Play FixAI Game
 
-![Model](https://img.shields.io/badge/model-Claude%20Haiku-green)
-![License](https://img.shields.io/badge/license-CC%20BY--NC--ND%204.0-lightgrey)
-[![Game](https://img.shields.io/badge/game-fixai.dev-blue)](https://fixai.dev)
+[![Model](https://img.shields.io/badge/model-Haiku-orange)](https://claude.com)
+[![License](https://img.shields.io/badge/license-CC%20BY--NC--ND%204.0-grey)](./LICENSE.md)
+[![Build](https://github.com/trev-gulls/play-fixai-game/actions/workflows/release.yml/badge.svg)](https://github.com/trev-gulls/play-fixai-game/actions)
+[![Version](https://img.shields.io/github/v/release/trev-gulls/play-fixai-game?color=green)](https://github.com/trev-gulls/play-fixai-game/releases/latest)
+[![Play](https://img.shields.io/badge/play-fixai.dev-red)](https://fixai.dev)
 
 A Claude skill for playing [Fix AI](https://fixai.dev) — a browser game where
 you contest automated AI decisions using real consumer protection law.
