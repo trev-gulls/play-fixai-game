@@ -59,6 +59,10 @@ for field in version author; do
     fi
 done
 
+# Site SKILL.md must have exactly two --- delimiters (frontmatter open + close)
+SITE_DELIM_COUNT="$(grep -c "^---$" _site/SKILL.md || true)"
+assert_eq "site SKILL.md has exactly 2 --- delimiters" "2" "$SITE_DELIM_COUNT"
+
 # Source SKILL.md must be unchanged
 for field in version author; do
     if grep -q "^${field}:" skills/play-fixai-game/SKILL.md; then
@@ -67,6 +71,13 @@ for field in version author; do
         fail "source SKILL.md missing ${field}: field (should be unchanged)"
     fi
 done
+
+SRC_DELIM_COUNT="$(grep -c "^---$" skills/play-fixai-game/SKILL.md || true)"
+if [ "$SRC_DELIM_COUNT" -gt 2 ]; then
+    pass "source SKILL.md retains body --- delimiters"
+else
+    fail "source SKILL.md body --- delimiters missing (should be unchanged)"
+fi
 
 # ── make clean (after site) ───────────────────────────────────────────────────
 
