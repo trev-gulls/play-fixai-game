@@ -2,6 +2,7 @@
 *.skill
 build/
 dist/
+_site/
 
 # OS
 .DS_Store

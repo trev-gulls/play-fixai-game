@@ -43,6 +43,22 @@ When releasing a new version, update the Install badge link:
 [![Install](https://img.shields.io/github/v/release/trev-gulls/play-fixai-game?color=0969da&label=install)](https://github.com/trev-gulls/play-fixai-game/releases/download/vX.X.X/play-fixai-game.skill)
 ```
 
+## Build Targets
+
+| Command | Output |
+|---------|--------|
+| `make build` | `play-fixai-game.skill` ZIP for Claude AI Desktop |
+| `make site` | `_site/` flat directory for GitHub Pages |
+| `make test` | Verifies exact file manifests for both outputs |
+| `make clean` | Removes all build artifacts (ZIP, `build/`, `_site/`) |
+
+## GitHub Pages
+
+Skill assets deploy to Pages automatically on push to `main` via `pages.yml`.
+Gallery install URL: `https://trev-gulls.github.io/play-fixai-game/SKILL.md`
+
+Pages must be enabled in repo settings (Settings → Pages → Source: GitHub Actions).
+
 ## Development
 
 All changes go through feature branches and PRs. Direct commits to `main` are blocked by git hooks.
