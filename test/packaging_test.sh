@@ -50,6 +50,24 @@ ACTUAL_SITE="$(find _site -type f | sort)"
 
 assert_eq "site manifest" "$EXPECTED_SITE" "$ACTUAL_SITE"
 
+# Gallery-incompatible frontmatter fields must be stripped from site SKILL.md
+for field in version author; do
+    if grep -q "^${field}:" _site/SKILL.md; then
+        fail "site SKILL.md contains stripped field: ${field}"
+    else
+        pass "site SKILL.md has no ${field}: field"
+    fi
+done
+
+# Source SKILL.md must be unchanged
+for field in version author; do
+    if grep -q "^${field}:" skills/play-fixai-game/SKILL.md; then
+        pass "source SKILL.md retains ${field}: field"
+    else
+        fail "source SKILL.md missing ${field}: field (should be unchanged)"
+    fi
+done
+
 # ── make clean (after site) ───────────────────────────────────────────────────
 
 echo "make clean"
