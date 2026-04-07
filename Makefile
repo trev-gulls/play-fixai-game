@@ -28,7 +28,7 @@ build: clean
 site: clean
 	@echo "Staging $(SKILL_NAME) for GitHub Pages..."
 	@mkdir -p $(SITE_DIR)/agents
-	@cp $(PKG_SRC_PATH)/SKILL.md $(SITE_DIR)/
+	@sed '/^version:/d;/^author:/d' $(PKG_SRC_PATH)/SKILL.md > $(SITE_DIR)/SKILL.md
 	@cp -r $(PKG_SRC_PATH)/agents/. $(SITE_DIR)/agents/
 	@cp $(PKG_DOC_FILES) $(SITE_DIR)/
 	@touch $(SITE_DIR)/.nojekyll
