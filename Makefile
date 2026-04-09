@@ -5,6 +5,7 @@ SKILL_NAME := play-fixai-game
 SKILL_FILE := $(SKILL_NAME).skill
 PKG_SRC_PATH := skills/$(SKILL_NAME)
 SITE_DIR := _site
+DRAFT_SKILL_DST := $(SITE_DIR)/skills/draft-argument
 PKG_DOC_FILES := LICENSE.md NOTICE.md README.md
 
 help:
@@ -27,11 +28,21 @@ build: clean
 
 site: clean
 	@echo "Staging $(SKILL_NAME) for GitHub Pages..."
-	@mkdir -p $(SITE_DIR)/agents
+	@mkdir -p $(SITE_DIR)/agents $(DRAFT_SKILL_DST)
 	@awk 'BEGIN{d=0} /^---$$/{d++; if(d<=2){print; next} else{print ""; next}} {print}' \
 		$(PKG_SRC_PATH)/SKILL.md \
 		| sed '/^version:/d;/^author:/d' \
 		> $(SITE_DIR)/SKILL.md
+	@awk 'BEGIN{in_d=0;desc=""} \
+		/^version:|^author:/{next} \
+		/^name: argument-drafter/{print "name: draft-argument";next} \
+		/^description: >/{in_d=1;desc="";next} \
+		in_d && /^[[:space:]]/{sub(/^[[:space:]]+/,"");desc=(desc=="")?$$0:desc" "$$0;next} \
+		in_d{printf "description: %s\n",desc;in_d=0} \
+		{print} \
+		END{if(in_d)printf "description: %s\n",desc}' \
+		$(PKG_SRC_PATH)/agents/argument-drafter.md \
+		> $(DRAFT_SKILL_DST)/SKILL.md
 	@cp -r $(PKG_SRC_PATH)/agents/. $(SITE_DIR)/agents/
 	@cp $(PKG_DOC_FILES) $(SITE_DIR)/
 	@touch $(SITE_DIR)/.nojekyll

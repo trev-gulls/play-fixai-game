@@ -44,6 +44,7 @@ EXPECTED_SITE="$(printf '%s\n' \
     _site/README.md \
     _site/SKILL.md \
     "_site/agents/argument-drafter.md" \
+    "_site/skills/draft-argument/SKILL.md" \
 | sort)"
 
 ACTUAL_SITE="$(find _site -type f | sort)"
