@@ -108,6 +108,67 @@ curl -sI https://raw.githubusercontent.com/trev-gulls/play-fixai-game/refs/heads
 A backlog task has been filed:
 [`docs/work/backlog/2026-04-09-yaml-frontmatter-parsing-bug.md`](../work/backlog/2026-04-09-yaml-frontmatter-parsing-bug.md)
 
+## Workaround (Current App, Pre-PR)
+
+Pasting a `raw.githubusercontent.com` directory URL — no trailing slash, no
+`/SKILL.md` suffix — works with the current app:
+
+```
+https://raw.githubusercontent.com/trev-gulls/play-fixai-game/refs/heads/main/skills/play-fixai-game
+```
+
+The original normalization code strips a trailing `/SKILL.md` if present, then
+re-appends it. A bare directory URL passes through unchanged and gets `/SKILL.md`
+appended correctly. This path works in both the current app and after PR #642.
+
+The `description: >` YAML block scalar issue means the skill installs with
+`description = ">"` rather than the full text, but does not block installation.
+
+## Third Issue: JS Skill Misrouting on Invocation
+
+After installing the skill, invoking it produced a new error:
+
+> `Called JS skill "play-fixai-game/index.html". The system failed to execute
+> the game routing logic due to a JavaScript error.`
+
+**Cause:** The Gallery tool harness exposes a `runJs` tool to the LLM with the
+parameter annotation `"Use 'index.html' if not provided by user"`. The
+play-fixai-game instructions contain `"Spawn the drafter agent"` and reference
+`agents/argument-drafter.md` — a file path the app never fetches. Gallery has no
+agent-spawning mechanism; faced with a "spawn" directive and a file reference, the
+LLM reached for `runJs` as the closest available execution tool. With no script
+name provided, it defaulted to `index.html`, producing:
+
+```
+runJs(skillName="play-fixai-game", scriptName="index.html")
+→ getJsSkillUrl() → skill.skillUrl + "/scripts/index.html"
+→ fetch https://raw.githubusercontent.com/.../play-fixai-game/scripts/index.html
+→ 404 (no scripts/ directory exists)
+```
+
+**Root cause:** The skill was authored for the Claude API agent model (sub-agent
+spawning via `agents/` files) and is incompatible with Gallery's fixed tool set
+(`loadSkill`, `runJs`, `runIntent`, `AskUserQuestion`).
+
+## Resolution: Subskill via `loadSkill` + Build-Time Derivation
+
+The fix has two parts:
+
+1. **`draft-argument` as a Gallery subskill** — `agents/argument-drafter.md` is
+   derived into `_site/skills/draft-argument/SKILL.md` at build time by `make site`.
+   The awk transform renames the skill to `draft-argument`, strips `version`/`author`
+   fields, and flattens the `description: >` block scalar to a single inline value.
+   The source file remains canonical for the Claude Code version.
+
+2. **`play-fixai-game` SKILL.md to be updated** — the `"Read agents/argument-drafter.md"`
+   line needs replacing with a `loadSkill("draft-argument")` directive so the LLM
+   uses the Gallery tool harness rather than trying to read a file path directly.
+   *(Pending.)*
+
+Gallery install URLs (after Pages deploy):
+- `https://trev-gulls.github.io/play-fixai-game/SKILL.md`
+- `https://trev-gulls.github.io/play-fixai-game/skills/draft-argument/SKILL.md`
+
 ## convertSkillMdToProto Call Sites
 
 The parser is called from four distinct code paths in `SkillManagerViewModel.kt`,
